@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un juego para Annelys ❤️</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6e6;
+        }
+        #container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 0px 10px gray;
+            border-radius: 10px;
+        }
+        button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #cc0000;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h2>💖 Hola, Annelys 💖</h2>
+        <p>Antes de hacerte una pregunta importante, veamos cuánto recuerdas sobre nuestra relación. 😏</p>
+        <button onclick="startQuiz()">Comenzar</button>
+    </div>
+
+    <div id="quiz-container" class="hidden">
+        <h2 id="question"></h2>
+        <button onclick="checkAnswer(0)" id="btn0"></button>
+        <button onclick="checkAnswer(1)" id="btn1"></button>
+        <button onclick="checkAnswer(2)" id="btn2"></button>
+        <p id="feedback"></p>
+    </div>
+
+    <div id="final-screen" class="hidden">
+        <h2>🎉 ¡Felicidades, Annelys! 🎉</h2>
+        <p>Has demostrado que recuerdas nuestra historia. Ahora, la pregunta más importante:</p>
+        <h1>¿Quieres ser mi San Valentín? 💘</h1>
+        <button onclick="finalResponse('si')">Sí, obvio 💕</button>
+        <button onclick="finalResponse('no')">No... (Pero es broma, ¿verdad? 😅)</button>
+    </div>
+
+    <script>
+        const questions = [
+            { 
+                question: "¿En qué fecha nos hicimos novios? ❤️", 
+                answers: ["14 de febrero", "23 de septiembre", "3 de junio"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Cuál fue nuestro primer lugar de cita?", 
+                answers: ["Cine", "Parque", "Restaurante"], 
+                correct: 2 
+            },
+            { 
+                question: "¿Cómo se llama nuestra canción especial?", 
+                answers: ["Perfect", "Thinking Out Loud", "Nuestra canción secreta 🤫"], 
+                correct: 2 
+            }
+        ];
+        
+        let currentQuestion = 0;
+
+        function startQuiz() {
+            document.getElementById("container").classList.add("hidden");
+            document.getElementById("quiz-container").classList.remove("hidden");
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestion < questions.length) {
+                document.getElementById("question").innerText = questions[currentQuestion].question;
+                document.getElementById("btn0").innerText = questions[currentQuestion].answers[0];
+                document.getElementById("btn1").innerText = questions[currentQuestion].answers[1];
+                document.getElementById("btn2").innerText = questions[currentQuestion].answers[2];
+                document.getElementById("feedback").innerText = "";
+            } else {
+                showFinalScreen();
+            }
+        }
+
+        function checkAnswer(selected) {
+            if (selected === questions[currentQuestion].correct) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                document.getElementById("feedback").innerText = "¡Ups! No es correcto. Inténtalo de nuevo. 😜";
+            }
+        }
+
+        function showFinalScreen() {
+            document.getElementById("quiz-container").classList.add("hidden");
+            document.getElementById("final-screen").classList.remove("hidden");
+        }
+
+        function finalResponse(answer) {
+            if (answer === "si") {
+                alert("¡Sabía que dirías que sí! 😍💘 Te amo, Annelys 💖");
+            } else {
+                alert("¡Eso no es una opción! 😂 Pero igual te amo ❤️");
+            }
+        }
+    </script>
+
+</body>
+</html>
